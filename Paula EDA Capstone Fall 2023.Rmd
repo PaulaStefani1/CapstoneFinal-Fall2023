@@ -1,0 +1,189 @@
+---
+title: "Capstone Fall 2023 - Paula EDA Portion"
+output: html_document
+date: "2023-10-03"
+---
+
+
+```{r}
+
+install.packages('xts')
+library(lubridate)
+library(tidyverse)
+library(xts)
+library(zoo)
+library(ggplot2)
+
+```
+```{r}
+qual_data <- read.csv("qualitative_data_msba.csv")
+raw_ts <- read.csv('time_series_data_msba.csv')
+```
+
+```{r}
+summary(raw_ts)
+```
+
+```{r}
+ggplot(raw_ts, aes(x = unleaded)) + geom_histogram(bins = 100)
+ggplot(raw_ts, aes(x = diesel)) + geom_histogram(bins = 100)
+ggplot(raw_ts, aes(x = daily_yoy_ndt.total_inside_sales)) + geom_histogram(bins = 100)
+ggplot(raw_ts, aes(x = daily_yoy_ndt.total_food_service)) + geom_histogram(bins = 100)
+```
+
+```{r}
+# Set the axis labels and limits - Unleaded amount of gallons
+plot <- ggplot(raw_ts, aes(x = unleaded, fill = calendar_information.holiday)) +
+  geom_density(alpha = 0.5) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        panel.background = element_blank()) +
+  labs(title = "Density Plot of Unleaded Amount of Galons by Holiday", x = "Gallons Amount", fill = "Holiday")
+
+plot <- plot + xlim(0, 10000)
+
+# Display the plot
+plot
+```
+
+```{r}
+# Set the axis labels and limits - Diesel amount of gallons
+plot <- ggplot(raw_ts, aes(x = diesel, fill = calendar_information.holiday)) +
+  geom_density(alpha = 0.5) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        panel.background = element_blank()) +
+  labs(title = "Density Plot of Diesel Amount of Galons by Holiday", x = "Gallons Amount", fill = "Holiday")
+
+plot <- plot + xlim(0, 10000)
+
+# Display the plot
+plot
+```
+
+
+```{r}
+# Set the axis labels and limits - Diesel amount of gallons
+plot <- ggplot(raw_ts, aes(x = diesel, fill = calendar.day_of_week)) +
+  geom_density(alpha = 0.5) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        panel.background = element_blank()) +
+  labs(title = "Density Plot of Diesel Amount of Galons by Day of Week", x = "Gallons Amount", fill = "Day of the Week")
+
+plot <- plot + xlim(0, 10000)
+
+# Display the plot
+plot
+```
+
+```{r}
+# Set the axis labels and limits - Unleaded amount of gallons
+plot <- ggplot(raw_ts, aes(x = unleaded, fill = calendar.day_of_week)) +
+  geom_density(alpha = 0.5) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        panel.background = element_blank()) +
+  labs(title = "Density Plot of unleaded Amount of Galons by Day of Week", x = "Gallons Amount", fill = "Day of the Week")
+
+plot <- plot + xlim(0, 1000)
+
+# Display the plot
+plot
+```
+
+
+
+```{r}
+# Set the axis labels and limits - Inside Sales amount of gallons
+plot <- ggplot(raw_ts, aes(x = daily_yoy_ndt.total_inside_sales
+, fill = calendar.day_of_week)) +
+  geom_density(alpha = 0.5) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        panel.background = element_blank()) +
+  labs(title = "Density Plot of Inside Sales Amount of Galons by Day of Week", x = "Inside Sales", fill = "Day of the Week")
+
+plot <- plot + xlim(0, 1000)
+
+# Display the plot
+plot
+```
+
+```{r}
+# Set the axis labels and limits - Food Sales amount of gallons
+plot <- ggplot(raw_ts, aes(x = daily_yoy_ndt.total_food_service
+
+, fill = calendar.day_of_week)) +
+  geom_density(alpha = 0.5) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        panel.background = element_blank()) +
+  labs(title = "Density Plot of Food Services Amount of Galons by Day of Week", x = "Food Service", fill = "Day of the Week")
+
+plot <- plot + xlim(0, 1000)
+
+# Display the plot
+plot
+```
+
+
+```{r}
+ggplot(ts_all_holidays, aes(x=General_Holiday, y=diesel)) + 
+  geom_bar(stat="identity", width=.5, fill="turquoise") + 
+  labs(title="Impact of Holiday Days on Diesel", 
+       subtitle="Diesel on Non-Holiday Days(0) vs General Holiday Days (1)", 
+       caption="source: mpg") + 
+  theme(axis.text.x = element_text(angle=65, vjust=0.6))
+```
+```{r}
+ggplot(ts_all_holidays, aes(x=General_Holiday, y=daily_yoy_ndt.total_inside_sales
+)) + 
+  geom_bar(stat="identity", width=.5, fill="lightpink") + 
+  labs(title="Impact of Holiday Days on Inside Sales", 
+       subtitle="Inside Sales on Non-Holiday Days(0) vs General Holiday Days (1)", 
+       caption="source: mpg") + 
+  theme(axis.text.x = element_text(angle=65, vjust=0.6))
+```
+```{r}
+ggplot(ts_all_holidays, aes(x=General_Holiday, y=unleaded
+
+)) + 
+  geom_bar(stat="identity", width=.5, fill="yellow") + 
+  labs(title="Impact of Holiday Days on Unleaded Sales", 
+       subtitle="Unleaded Sales on Non-Holiday Days(0) vs General Holiday Days (1)", 
+       caption="source: mpg") + 
+  theme(axis.text.x = element_text(angle=65, vjust=0.6))
+```
+
+
+```{r}
+
+ggplot(ts_all_holidays, aes(x=General_Holiday, y=daily_yoy_ndt.total_food_service
+
+)) + 
+  geom_bar(stat="identity", width=.5, fill="lightgreen") + 
+  labs(title="Impact of Holiday Days on Food Service", 
+       subtitle="Food Sales on Non-Holiday Days(0) vs General Holiday Days (1)", 
+       caption="source: mpg") + 
+  theme(axis.text.x = element_text(angle=65, vjust=0.6))
+```
+
+
+```{r}
+ggplot(ts_w_holidays, aes(x=calendar_information.holiday, y=unleaded
+
+)) + 
+  geom_bar(stat="identity", width=.5, fill="yellow") + 
+  labs(title="Impact of Holiday Days on Unleaded Sales", 
+       subtitle="Unleaded Sales on Non-Holiday Days(0) vs General Holiday Days (1)", 
+       caption="source: mpg") + 
+  theme(axis.text.x = element_text(angle=65, vjust=0.6))
+```
+

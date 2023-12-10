@@ -1,0 +1,20 @@
+---
+title: "Business Problem MSBA"
+output: html_document
+date: "2023-12-10"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Business Problem Statement
+
+### Maverik is a leading convenience and fuel store brand known for providing an excellent customer experience and specialized ‘BonFire’ food. Maverik also strengthens their communities by impacting local hunger, education, and outdoor enrichment. Maverik, founded in 1928, has grown to 8000 employees and 400 locations. Opening 30 stores each year, Maverik faces the unique challenge of forecasting and evaluating first-year sales performance expectations for each new location. Insufficient historical data, complex sales predictors, varying trends, and market fluctuations complicate interpreting and modeling efforts. The benefit of the solution is that an accurate forecasting model will enable Maverik to improve financial planning and may provide more accurate initial ROI documentation. A successful model will yield cost-effective predictions that are comparatively accurate to Maverik’s existing predictive models. Specific metrics may include Adjusted R Squared, Root Mean Square Errors (RMSE), or other values determined by Maverik.
+
+### Garish Prajapat, Jade Gosar, Karson Eilers, and Paula Stefani will use store-level data provided by Maverik and macroeconomic indicators with precise metrics determined at a later point to develop a time series model to forecast store, food, gasoline, and diesel sales performance metrics for both individual and aggregate time intervals. The scope will meet several time-certain milestones. The team will first perform exploratory data analysis (EDA) by October 1st. The team will then evaluate several analytics approaches; including autoregression, weighted moving averages, vector autoregression (VAR), autoregressive integrated moving averages (ARIMA), neural networks, and simulation to determine which are most appropriate for the given dataset. The team will then develop the model using the R programming language. By combining time series forecasting with simulation, the final model’s performance can be validated against simulated data to assess its robustness and allows the team to better understand the uncertainties associated with its forecasts. Due to the complexity of Maverik’s industry, simulation will also help estimate the range of possible future outcomes and behavior of key variables, giving the model the opportunity to capture important interactions occurring within the data. The analysis will be completed by October 29th with the team presenting their findings on November 28th. The final product delivered will be the EDA results (including which factors contribute more to improved store performance) and the R script for the model. Automatic forecasting with new data exceeds this current scope of work, but the team will reevaluate this request as the models are constructed.
+
+
+
+
+
